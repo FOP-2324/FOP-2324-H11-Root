@@ -2,6 +2,7 @@ package h11;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Warehouse {
@@ -28,5 +29,11 @@ public class Warehouse {
         this.makeStreamOfProducts(category, price, quantity)
             .limit(numberOfProducts)
             .peek(this.products::add);
+    }
+
+    public List<Product> filterByAvailability() {
+        return this.products.stream()
+            .filter(Product::isAvailable)
+            .collect(Collectors.toList());
     }
 }
