@@ -20,6 +20,12 @@ public class Warehouse {
         this.capacity = 100; // arbitrary choosen
     }
 
+    public int getTotalQuantity() {
+        return this.products.stream()
+            .mapToInt(Product::getPrice)
+            .sum();
+    }
+
 
     public Stream<Product> makeStreamOfProducts(ProductTyp category, int price, int quantity) {
         return Stream.generate(() -> new Product(category, price, quantity));
