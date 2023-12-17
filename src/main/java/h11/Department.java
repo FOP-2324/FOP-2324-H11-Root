@@ -24,4 +24,12 @@ public class Department {
             .filter(employee -> employee.getJob().equals(job))
             .collect(Collectors.toList());
     }
+
+    public int getNumberOfEmployeesByJob(Job job) {
+        return this.employees.stream()
+            .map(Employee::getJob)
+            .filter(j -> j.equals(job))
+            .collect(Collectors.toList())
+            .size();
+    }
 }
