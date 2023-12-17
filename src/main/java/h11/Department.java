@@ -11,6 +11,11 @@ public class Department {
         this.employees = employees;
     }
 
+
+    public List<Employee> getEmployees() {
+        return this.employees;
+    }
+
     public List<Job> getListOfJobsInDepartment() {
         return this.employees.stream()
             .map(Employee::getJob)
