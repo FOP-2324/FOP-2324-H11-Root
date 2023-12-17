@@ -11,6 +11,13 @@ public class Department {
         this.employees = employees;
     }
 
+    public List<Job> getListOfJobsInDepartment() {
+        return this.employees.stream()
+            .map(Employee::getJob)
+            .distinct()
+            .collect(Collectors.toList());
+    }
+
 
     public List<Employee> filterEmployeeByJob(Job job) {
         return this.employees.stream()
