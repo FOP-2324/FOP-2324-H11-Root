@@ -1,6 +1,7 @@
 package h11;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Department {
 
@@ -11,7 +12,9 @@ public class Department {
     }
 
 
-    public List<Job> getListOfJobsInDepartment() {
-        return null;
+    public List<Employee> filterEmployeeByJob(Job job) {
+        return this.employees.stream()
+            .filter(employee -> employee.getJob().equals(job))
+            .collect(Collectors.toList());
     }
 }
