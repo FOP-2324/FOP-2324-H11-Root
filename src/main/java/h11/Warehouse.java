@@ -20,6 +20,11 @@ public class Warehouse {
         this.capacity = 100; // arbitrary choosen
     }
 
+
+    public List<Product> getProducts() {
+        return this.products;
+    }
+
     public int getTotalQuantity() {
         return this.products.stream()
             .mapToInt(Product::getPrice)
