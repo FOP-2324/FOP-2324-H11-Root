@@ -20,4 +20,12 @@ public class Company {
             .flatMap(d -> d.getEmployees().stream())
             .collect(Collectors.toList());
     }
+
+    public int getQuantityOfProduct(Product product) {
+        return this.warehouses.stream()
+            .flatMap(warehouse -> warehouse.getProducts().stream())
+            .filter(p -> p.equals(product))
+            .collect(Collectors.toList())
+            .size();
+    }
 }
