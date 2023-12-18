@@ -44,26 +44,28 @@ public class Warehouse {
         this.currentCapacity = currentCapacity;
     }
 
-    public int getTotalQuantity() {
+    public int getTotalQuantityOfProduct(Product product) {
         return this.products.stream()
-            .mapToInt(Product::getQuantity)
+            .filter(p -> p == product)
+            .toList()
+            .size();
+    }
+
+    public double getTotalPrice() {
+        return this.products.stream()
+            .mapToDouble(Product::getPrice)
             .sum();
     }
 
-
-    public Stream<Product> makeStreamOfProducts(ProductTyp category, int price, int quantity) {
-        return Stream.generate(() -> new Product(category, price, quantity, null));
-    }
-
-    public void addProducts(ProductTyp category, int price, int quantity, int numberOfProducts) {
-        this.makeStreamOfProducts(category, price, quantity)
+    public void addProducts(Product product, int numberOfProducts) {
+        product.generateProducts()
             .limit(numberOfProducts)
             .forEach(this.products::add);
     }
 
     public List<Product> filterByAvailability() {
         return this.products.stream()
-            .filter(Product::isAvailable)
+            .filter(p -> this.getTotalQuantityOfProduct(p) > 0)
             .collect(Collectors.toList());
     }
 }
