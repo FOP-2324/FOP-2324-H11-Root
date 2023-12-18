@@ -3,10 +3,10 @@ package h11;
 public class Employee {
 
     private final String NAME;
-    private int salary;
+    private double salary;
     private Position position;
 
-    public Employee(String name, Position position, int salary) {
+    public Employee(String name, Position position, double salary) {
         this.NAME = name;
         this.position = position;
         this.salary = salary;
@@ -16,11 +16,11 @@ public class Employee {
         return this.position;
     }
 
-    public int getSalary() {
+    public double getSalary() {
         return this.salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(double salary) {
         this.salary = salary;
     }
 
