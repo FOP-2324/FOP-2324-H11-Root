@@ -27,19 +27,19 @@ public class Warehouse {
 
     public int getTotalQuantity() {
         return this.products.stream()
-            .mapToInt(Product::getPrice)
+            .mapToInt(Product::getQuantity)
             .sum();
     }
 
 
     public Stream<Product> makeStreamOfProducts(ProductTyp category, int price, int quantity) {
-        return Stream.generate(() -> new Product(category, price, quantity));
+        return Stream.generate(() -> new Product(category, price, quantity, null));
     }
 
     public void addProducts(ProductTyp category, int price, int quantity, int numberOfProducts) {
         this.makeStreamOfProducts(category, price, quantity)
             .limit(numberOfProducts)
-            .peek(this.products::add);
+            .forEach(this.products::add);
     }
 
     public List<Product> filterByAvailability() {
