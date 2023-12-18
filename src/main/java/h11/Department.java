@@ -16,24 +16,24 @@ public class Department {
         return this.employees;
     }
 
-    public List<Job> getListOfJobsInDepartment() {
+    public List<Position> getListOfJobsInDepartment() {
         return this.employees.stream()
-            .map(Employee::getJob)
+            .map(Employee::getPosition)
             .distinct()
             .collect(Collectors.toList());
     }
 
 
-    public List<Employee> filterEmployeeByJob(Job job) {
+    public List<Employee> filterEmployeeByJob(Position position) {
         return this.employees.stream()
-            .filter(employee -> employee.getJob().equals(job))
+            .filter(employee -> employee.getPosition().equals(position))
             .collect(Collectors.toList());
     }
 
-    public int getNumberOfEmployeesByJob(Job job) {
+    public int getNumberOfEmployeesByJob(Position position) {
         return this.employees.stream()
-            .map(Employee::getJob)
-            .filter(j -> j.equals(job))
+            .map(Employee::getPosition)
+            .filter(j -> j.equals(position))
             .collect(Collectors.toList())
             .size();
     }
