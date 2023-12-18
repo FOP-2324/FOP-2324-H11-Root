@@ -48,8 +48,4 @@ public class Product {
     }
 
 
-    public Stream<Product> generateProducts() {
-        return Stream.iterate(new Product(this.TYP, this.price, this.PRODUCT_NAME),
-            product -> new Product(this.TYP, this.price, this.PRODUCT_NAME));
-    }
 }
