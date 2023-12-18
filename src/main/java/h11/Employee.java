@@ -28,11 +28,8 @@ public class Employee {
         this.position = position;
     }
 
-    public String getFirstName() {
-        return this.NAME.split(" ")[0];
+    public String getName() {
+        return this.NAME;
     }
 
-    public String getLastName() {
-        return this.NAME.split(" ")[1];
-    }
 }
