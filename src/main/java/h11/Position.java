@@ -1,6 +1,6 @@
 package h11;
 
-public enum Job {
+public enum Position {
     Developer,
     Analyst,
     Admin,
