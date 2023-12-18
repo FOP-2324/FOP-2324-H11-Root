@@ -1,5 +1,7 @@
 package h11;
 
+import java.util.stream.Stream;
+
 public class Product {
 
     private final ProductTyp TYP;
@@ -11,6 +13,12 @@ public class Product {
         this.TYP = typ;
         this.price = price;
         this.quantity = quantity;
+        this.PRODUCT_NAME = productName;
+    }
+
+    public Product(ProductTyp typ, double price, String productName) {
+        this.TYP = typ;
+        this.price = price;
         this.PRODUCT_NAME = productName;
     }
 
@@ -40,7 +48,8 @@ public class Product {
     }
 
 
-    public boolean isAvailable() {
-        return this.quantity >0;
+    public Stream<Product> generateProducts() {
+        return Stream.iterate(new Product(this.TYP, this.price, this.PRODUCT_NAME),
+            product -> new Product(this.TYP, this.price, this.PRODUCT_NAME));
     }
 }
