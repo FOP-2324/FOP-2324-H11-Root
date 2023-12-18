@@ -3,11 +3,11 @@ package h11;
 public class Product {
 
     private final ProductTyp TYP;
-    private int price;
+    private double price;
     private int quantity;
     private final String PRODUCT_NAME;
 
-    public Product(ProductTyp typ, int price, int quantity, String productName) {
+    public Product(ProductTyp typ, double price, int quantity, String productName) {
         this.TYP = typ;
         this.price = price;
         this.quantity = quantity;
@@ -15,7 +15,7 @@ public class Product {
     }
 
 
-    public int getPrice() {
+    public double getPrice() {
         return this.price;
     }
 
@@ -23,7 +23,7 @@ public class Product {
         return this.quantity;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -33,6 +33,10 @@ public class Product {
 
     public ProductTyp getProductTyp() {
         return this.TYP;
+    }
+
+    public String getName() {
+        return this.PRODUCT_NAME;
     }
 
 
