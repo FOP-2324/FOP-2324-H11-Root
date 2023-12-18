@@ -16,25 +16,28 @@ public class Department {
         return this.employees;
     }
 
-    public List<Position> getListOfJobsInDepartment() {
+    public List<Position> getListOfPositionsInDepartment() {
         return this.employees.stream()
             .map(Employee::getPosition)
             .distinct()
             .collect(Collectors.toList());
     }
 
-
-    public List<Employee> filterEmployeeByJob(Position position) {
+    public List<Employee> filterEmployeeByPosition(Position position) {
         return this.employees.stream()
             .filter(employee -> employee.getPosition().equals(position))
             .collect(Collectors.toList());
     }
 
-    public int getNumberOfEmployeesByJob(Position position) {
+    public int getNumberOfEmployeesByPosition(Position position) {
         return this.employees.stream()
             .map(Employee::getPosition)
             .filter(j -> j.equals(position))
             .collect(Collectors.toList())
             .size();
+    }
+
+    public void increaseSalary(double amount) {
+        this.employees.forEach(employee -> employee.setSalary(employee.getSalary() + amount));
     }
 }
