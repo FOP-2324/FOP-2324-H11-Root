@@ -4,20 +4,28 @@ public class Employee {
 
     private final String NAME;
     private int salary;
-    private Job job;
+    private Position position;
 
-    public Employee(String name, Job job, int salary) {
+    public Employee(String name, Position position, int salary) {
         this.NAME = name;
-        this.job = job;
+        this.position = position;
         this.salary = salary;
     }
 
-    public Job getJob() {
-        return this.job;
+    public Position getPosition() {
+        return this.position;
     }
 
     public int getSalary() {
         return this.salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public String getFirstName() {
