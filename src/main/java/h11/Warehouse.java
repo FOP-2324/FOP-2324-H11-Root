@@ -9,21 +9,17 @@ public class Warehouse {
 
     public List<Product> products;
     private int maxCapacity;
-    private int minCapacity;
     private int currentCapacity;
 
     public Warehouse() {
         this.products = new ArrayList<>();
         this.maxCapacity = 100; // arbitrary choosen
-        this.minCapacity = 20;
         this.currentCapacity = 0;
-
     }
 
     public Warehouse(List<Product> products) {
         this.products = products;
         this.maxCapacity = 100; // arbitrary choosen
-        this.minCapacity = 20;
         this.currentCapacity = 0;
     }
 
@@ -36,19 +32,15 @@ public class Warehouse {
         this.maxCapacity = maxCapacity;
     }
 
-    public void setMinCapacity(int minCapacity) {
-        this.minCapacity = minCapacity;
-    }
 
     public void setCurrentCapacity(int currentCapacity) {
         this.currentCapacity = currentCapacity;
     }
 
-    public int getTotalQuantityOfProduct(Product product) {
+    public long getTotalQuantityOfProduct(Product product) {
         return this.products.stream()
             .filter(p -> p == product)
-            .toList()
-            .size();
+            .count();
     }
 
     public double getTotalPrice() {
@@ -58,14 +50,13 @@ public class Warehouse {
     }
 
     public void addProducts(Product product, int numberOfProducts) {
-        product.generateProducts()
+        this.generateProducts(product.getProductTyp(), product.getPrice(), product.getName())
             .limit(numberOfProducts)
             .forEach(this.products::add);
     }
 
-    public List<Product> filterByAvailability() {
-        return this.products.stream()
-            .filter(p -> this.getTotalQuantityOfProduct(p) > 0)
-            .collect(Collectors.toList());
+    public Stream<Product> generateProducts(ProductTyp typ, double price, String name) {
+        return Stream.generate(() -> new Product(typ, price, name));
     }
+
 }
