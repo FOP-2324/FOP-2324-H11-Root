@@ -8,21 +8,40 @@ import java.util.stream.Stream;
 public class Warehouse {
 
     public List<Product> products;
-    private int capacity;
+    private int maxCapacity;
+    private int minCapacity;
+    private int currentCapacity;
 
     public Warehouse() {
         this.products = new ArrayList<>();
-        this.capacity = 100; // arbitrary choosen
+        this.maxCapacity = 100; // arbitrary choosen
+        this.minCapacity = 20;
+        this.currentCapacity = 0;
+
     }
 
     public Warehouse(List<Product> products) {
         this.products = products;
-        this.capacity = 100; // arbitrary choosen
+        this.maxCapacity = 100; // arbitrary choosen
+        this.minCapacity = 20;
+        this.currentCapacity = 0;
     }
 
 
     public List<Product> getProducts() {
         return this.products;
+    }
+
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
+
+    public void setMinCapacity(int minCapacity) {
+        this.minCapacity = minCapacity;
+    }
+
+    public void setCurrentCapacity(int currentCapacity) {
+        this.currentCapacity = currentCapacity;
     }
 
     public int getTotalQuantity() {
