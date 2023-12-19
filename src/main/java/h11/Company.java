@@ -26,7 +26,7 @@ public class Company {
     public long getQuantityOfProduct(Product product) {
         return this.warehouses.stream()
             .flatMap(warehouse -> warehouse.getProducts().stream())
-            .filter(p -> p == product)
+            .filter(p -> p.equals(product))
             .count();
     }
 
