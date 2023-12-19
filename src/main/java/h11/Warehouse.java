@@ -23,6 +23,13 @@ public class Warehouse {
         this.currentCapacity = 0;
     }
 
+    public int getCurrentCapacity() {
+        return this.currentCapacity;
+    }
+
+    public int getMaxCapacity() {
+        return this.maxCapacity;
+    }
 
     public List<Product> getProducts() {
         return this.products;
@@ -39,7 +46,7 @@ public class Warehouse {
 
     public long getTotalQuantityOfProduct(Product product) {
         return this.products.stream()
-            .filter(p -> p == product)
+            .filter(p -> p.equals(product))
             .count();
     }
 
