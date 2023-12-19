@@ -1,51 +1,15 @@
 package h11;
 
-import java.util.stream.Stream;
+import org.tudalgo.algoutils.student.annotation.DoNotTouch;
 
-public class Product {
-
-    private final ProductTyp TYP;
-    private double price;
-    private int quantity;
-    private final String PRODUCT_NAME;
-
-    public Product(ProductTyp typ, double price, int quantity, String productName) {
-        this.TYP = typ;
-        this.price = price;
-        this.quantity = quantity;
-        this.PRODUCT_NAME = productName;
-    }
-
-    public Product(ProductTyp typ, double price, String productName) {
-        this.TYP = typ;
-        this.price = price;
-        this.PRODUCT_NAME = productName;
-    }
-
-
-    public double getPrice() {
-        return this.price;
-    }
-
-    public int getQuantity() {
-        return this.quantity;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public ProductTyp getProductTyp() {
-        return this.TYP;
-    }
-
-    public String getName() {
-        return this.PRODUCT_NAME;
-    }
-
-
+/**
+ * Represents a {@link Product} which is stored in a {@link Warehouse}.
+ *
+ * @param type     the {@link ProductType} of this product
+ * @param price    the price of the product in euros
+ * @param quantity the quantity of the product
+ * @param name     the name of the product
+ */
+@DoNotTouch
+public record Product(ProductType type, double price, int quantity, String name) {
 }
