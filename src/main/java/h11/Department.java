@@ -29,14 +29,16 @@ public class Department {
             .collect(Collectors.toList());
     }
 
-    public long getNumberOfEmployeesByPosition(Position position) {
+    public long getNumberOfEmployeesBySalary(double salary) {
         return this.employees.stream()
-            .map(Employee::getPosition)
-            .filter(p -> p.equals(position))
+            .map(Employee::getSalary)
+            .filter(s -> s >= salary)
             .count();
     }
 
-    public void increaseSalary(double amount) {
-        this.employees.forEach(employee -> employee.setSalary(employee.getSalary() + amount));
+    public void adjustSalary(double amount, boolean increase) {
+        this.employees.forEach(employee -> employee.setSalary(
+            employee.getSalary() + (increase ? amount : -amount)
+        ));
     }
 }
