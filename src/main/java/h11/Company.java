@@ -38,6 +38,14 @@ public class Company {
             .toList();
     }
 
+
+    public List<Warehouse> getWarehousesByCapacity(int capacity) {
+        return this.warehouses.stream()
+            .filter(warehouse -> warehouse.getCurrentCapacity() < capacity)
+            .toList();
+    }
+
+
     public List<Product> priceRange(double low, double high) {
         return this.warehouses.stream()
             .flatMap(warehouse -> warehouse.getProducts().stream())
@@ -57,12 +65,12 @@ public class Company {
             .toList();
     }
 
-    public List<String> getAllProductsByType(ProductTyp type) {
+    public List<String> getAllProductsByType(ProductTyp type, int numberOfProducts) {
         return this.warehouses.stream()
             .flatMap(warehouse -> warehouse.getProducts().stream())
             .filter(product -> product.getProductTyp().equals(type))
             .sorted(Comparator.comparingDouble(Product::getPrice).reversed())
-            .limit(5)
+            .limit(numberOfProducts)
             .map(product -> String.format("%s: %f€", product.getName(), product.getPrice()))
             .toList();
 
