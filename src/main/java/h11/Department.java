@@ -20,13 +20,13 @@ public class Department {
         return this.employees.stream()
             .map(Employee::getPosition)
             .distinct()
-            .collect(Collectors.toList());
+            .toList();
     }
 
     public List<Employee> filterEmployeeByPosition(Position position) {
         return this.employees.stream()
             .filter(employee -> employee.getPosition().equals(position))
-            .collect(Collectors.toList());
+            .toList();
     }
 
     public long getNumberOfEmployeesBySalary(double salary) {
