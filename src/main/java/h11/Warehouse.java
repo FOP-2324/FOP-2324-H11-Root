@@ -103,6 +103,6 @@ public class Warehouse {
 
     @StudentImplementationRequired
     public Stream<Product> generateProducts(ProductType typ, double price, String name) {
-        return Stream.generate(() -> new Product(typ, price, 1, name));
+        return Stream.generate(() -> new Product(typ, price, name));
     }
 }

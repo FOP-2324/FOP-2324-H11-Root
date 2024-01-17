@@ -7,9 +7,8 @@ import org.tudalgo.algoutils.student.annotation.DoNotTouch;
  *
  * @param type     the {@link ProductType} of this product
  * @param price    the price of the product in euros
- * @param quantity the quantity of the product
  * @param name     the name of the product
  */
 @DoNotTouch
-public record Product(ProductType type, double price, int quantity, String name) {
+public record Product(ProductType type, double price, String name) {
 }
