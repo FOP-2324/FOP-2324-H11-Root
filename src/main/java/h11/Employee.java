@@ -1,5 +1,11 @@
 package h11;
 
+import org.tudalgo.algoutils.student.annotation.DoNotTouch;
+
+/**
+ * A {@link Employee} represents an Employee which has a Name, a salary and a position.
+ */
+@DoNotTouch
 public class Employee {
 
     private final String NAME;
