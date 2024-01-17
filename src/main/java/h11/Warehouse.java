@@ -21,10 +21,6 @@ public class Warehouse {
 
     @DoNotTouch
     public List<Product> products = new ArrayList<>();
-    @DoNotTouch
-    private int maxCapacity = 100;
-    @DoNotTouch
-    private int currentCapacity = 0;
 
     @DoNotTouch
     public Warehouse(List<Product> products) {
@@ -56,29 +52,6 @@ public class Warehouse {
         return this.products.stream()
             .filter(predicate)
             .toList();
-    }
-
-    @StudentImplementationRequired
-    public void setMaxCapacity(int maxCapacity) {
-        this.maxCapacity = maxCapacity;
-    }
-
-
-    // Do NOT forget to add getters, otherwise testing will be problematic
-
-    @DoNotTouch
-    public int getCurrentCapacity() {
-        return currentCapacity;
-    }
-
-    @DoNotTouch
-    public int getMaxCapacity() {
-        return maxCapacity;
-    }
-
-    @DoNotTouch
-    public void setCurrentCapacity(int currentCapacity) {
-        this.currentCapacity = currentCapacity;
     }
 
     @StudentImplementationRequired
