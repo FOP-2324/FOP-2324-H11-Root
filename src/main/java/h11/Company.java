@@ -123,10 +123,10 @@ public record Company(@DoNotTouch List<Department> departments, @DoNotTouch List
      * @return the list of employees
      */
     @StudentImplementationRequired
-    public List<String> getAllProductsByType(ProductType type) {
+    public List<String> getAllProductsByType(ProductType type, int numberOfProducts) {
         return getProducts(product -> product.type().equals(type))
             .sorted(Comparator.comparingDouble(Product::price).reversed())
-            .limit(5)
+            .limit(numberOfProducts)
             .map(product -> String.format("%s: %f€", product.name(), product.price()))
             .toList();
         // {Laptop: 1000$, ()}
