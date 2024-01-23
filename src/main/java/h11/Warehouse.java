@@ -105,4 +105,22 @@ public class Warehouse {
     public Stream<Product> generateProducts(ProductType typ, double price, String name) {
         return Stream.generate(() -> new Product(typ, price, 1, name));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            return true;
+        }
+        if (!(obj instanceof Warehouse other)) {
+            return false;
+        }
+        return products.equals(other.products);
+    }
+
+    @Override
+    public String toString() {
+        return "Warehouse{" +
+            "products=" + products +
+            '}';
+    }
 }

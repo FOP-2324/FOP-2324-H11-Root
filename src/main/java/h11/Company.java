@@ -92,7 +92,7 @@ public record Company(@DoNotTouch List<Department> departments, @DoNotTouch List
      */
     @StudentImplementationRequired
     public List<Product> priceRange(double low, double high) {
-        return getProducts(p -> p.price() < high && p.price() > low)
+        return getProducts(p -> p.price() <= high && p.price() >= low)
             .sorted(Comparator.comparingDouble(Product::price))
             .toList();
     }

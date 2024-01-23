@@ -38,4 +38,19 @@ public class Employee {
         return this.NAME;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            return true;
+        }
+        if (!(obj instanceof Employee other)) {
+            return false;
+        }
+        return getName().equals(other.getName()) && getPosition().equals(other.getPosition()) && getSalary() == other.getSalary();
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{name=" + getName() + ", position=" + getPosition() + ", salary=" + getSalary() + "}";
+    }
 }
