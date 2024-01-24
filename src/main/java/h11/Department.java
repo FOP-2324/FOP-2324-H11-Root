@@ -56,10 +56,10 @@ public record Department(
      * @return the number of employees
      */
     @StudentImplementationRequired
-    public long getNumberOfEmployeesByPosition(Position position) {
+    public long getNumberOfEmployeesBySalary(double salary) {
         return this.employees.stream()
-            .map(Employee::getPosition)
-            .filter(position::equals)
+            .map(Employee::getSalary)
+            .filter(eSalary -> eSalary >= salary)
             .count();
     }
 
