@@ -170,6 +170,8 @@ public class JsonConverter {
             return new TextNode(position.name());
         } else if (toMap instanceof ProductType productType) {
             return new TextNode(productType.name());
+        } else if (toMap instanceof Enum<?> enumValue) {
+            return new TextNode(enumValue.name());
         } else {
             return JsonNodeFactory.instance.pojoNode(toMap);
         }

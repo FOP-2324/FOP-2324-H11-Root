@@ -21,11 +21,11 @@ public class H11_RubricProvider implements RubricProvider {
                         .shortDescription("H1.1: Liste aller Positionen")
                         .addChildCriteria(
                             criterion(
-                                "Die Liste aller Positionen wird korrekt zurück gegeben, wenn duplikate vorhanden sind.",
+                                "Die Liste aller Positionen wird korrekt zurück gegeben, wenn Duplikate vorhanden sind.",
                                 JUnitTestRef.ofMethod(() -> DepartmentTest.class.getMethod("testGetListOfPositionsInDepartment_duplicate", JsonParameterSet.class))
                             ),
                             criterion(
-                                "Die Liste aller Positionen wird korrekt zurück gegeben, wenn keine duplikate vorhanden sind.",
+                                "Die Liste aller Positionen wird korrekt zurück gegeben, wenn keine Duplikate vorhanden sind.",
                                 JUnitTestRef.ofMethod(() -> DepartmentTest.class.getMethod("testGetListOfPositionsInDepartment_noDuplicate", JsonParameterSet.class))
                             )
                         )
@@ -54,7 +54,7 @@ public class H11_RubricProvider implements RubricProvider {
                         .shortDescription("H1.4: Gehaltserhöhung?")
                         .addChildCriteria(
                             criterion(
-                                "Die Gehälter aller Employees wird korrekt angepasst, wenn das Department keine Employees hat",
+                                "Die Gehälter aller Employees werden korrekt angepasst, wenn das Department keine Employees hat",
                                 JUnitTestRef.and(
                                     JUnitTestRef.ofMethod(() -> DepartmentTest.class.getMethod("testAdjustSalary_empty_positive", JsonParameterSet.class)),
                                     JUnitTestRef.ofMethod(() -> DepartmentTest.class.getMethod("testAdjustSalary_empty_negative", JsonParameterSet.class))
@@ -78,15 +78,15 @@ public class H11_RubricProvider implements RubricProvider {
                         .shortDescription("H2.1: Produktpreis")
                         .addChildCriteria(
                             criterion(
-                                "getPrice() liefert korrekte Werte zurück, falls null als product übergeben wird.",
+                                "Die Methode getPrice() liefert korrekte Werte zurück, falls null als Parameter übergeben wird.",
                                 JUnitTestRef.ofMethod(() -> WarehouseTest.class.getMethod("testGetPrice_null", JsonParameterSet.class))
                             ),
                             criterion(
-                                "getPrice() liefert korrekte Werte zurück, falls nicht null als product übergeben wird.",
+                                "Die Methode getPrice() liefert korrekte Werte zurück, falls nicht null als Parameter übergeben wird.",
                                 JUnitTestRef.ofMethod(() -> WarehouseTest.class.getMethod("testGetPrice_nonNull", JsonParameterSet.class))
                             ),
                             criterion(
-                                "Die Verbindlichen Anforderungen der Aufgabe wurden eingehalten.",
+                                "Die verbindlichen Anforderungen der Aufgabe wurden eingehalten.",
                                 JUnitTestRef.ofMethod(() -> WarehouseTest.class.getMethod("testGetPrice_va")),
                                 -1
                             )
@@ -96,38 +96,39 @@ public class H11_RubricProvider implements RubricProvider {
                     Criterion.builder()
                         .shortDescription("H2.2: Nur bestimmte Produkte gefordert")
                         .addChildCriteria(
-                            privateCriterion("", 0, 1)
+                            privateCriterion("Die Methode getProducts() liefert die korrekten Elemente der Liste zurück.", 0, 1)
                         )
                         .build(),
                     Criterion.builder()
                         .shortDescription("H2.3: Übersicht über die Stückzahl")
                         .addChildCriteria(
-                            privateCriterion("", 0, 2)
+                            privateCriterion("Die Methode getTotalQuantityOfProduct() liefert die korrekte Anzahl an Produkten für das gegebene Produkt zurück.", 0, 2)
                         )
                         .build(),
                     Criterion.builder()
                         .shortDescription("H2.4: Wieviel Wert steckt denn nun hier drinnen?")
                         .addChildCriteria(
-                            privateCriterion("", 0, 2)
+                            privateCriterion("Die Methode getTotalPrice() liefert den Wert der Waren korrekt zurück", 0, 2)
                         )
                         .build(),
                     Criterion.builder()
                         .shortDescription("H2.5: Eine Lieferung kommt rein")
                         .addChildCriteria(
-                            privateCriterion("", 0, 2)
+                            criterion(
+                                "Die Methode generateProducts() liefert einen unendlichen Stream zurück.",
+                                JUnitTestRef.ofMethod(() -> WarehouseTest.class.getMethod("testGenerateProducts"))
+                            ),
+                            criterion(
+                                "Die Methode generateProducts() liefert einen Stream mit korrekten Elementen zurück.",
+                                JUnitTestRef.ofMethod(() -> WarehouseTest.class.getMethod("testGenerateProducts", ProductType.class, double.class, String.class))
+                            )
                         )
                         .build(),
                     Criterion.builder()
                         .shortDescription("H2.6: Aufstocken")
                         .addChildCriteria(
-                            criterion(
-                                "generateProducts() liefert einen unendlichen Stream zurück.",
-                                JUnitTestRef.ofMethod(() -> WarehouseTest.class.getMethod("testGenerateProducts"))
-                            ),
-                            criterion(
-                                "generateProducts() liefert einen Stream mit korrekten Elementen zurück.",
-                                JUnitTestRef.ofMethod(() -> WarehouseTest.class.getMethod("testGenerateProducts", ProductType.class, double.class, String.class))
-                            )
+                            privateCriterion("Die Methode addProducts() fügt die übergebene Menge an Produkten zu \"products\" hinzu.", 0, 1),
+                            privateCriterion("Die Methode addProducts() fügt Produkte aus generateProducts() zu \"products\" hinzu.", 0, 1)
                         )
                         .build()
                 )
@@ -139,7 +140,7 @@ public class H11_RubricProvider implements RubricProvider {
                         .shortDescription("H3.1: Übersicht aller Mitarbeiter")
                         .addChildCriteria(
                             criterion(
-                                "getListOfAllEmployee() liefert korrekt alle Employees aller Departments zurück.",
+                                "Die Methode getListOfAllEmployee() liefert korrekt alle Employees aller Departments zurück.",
                                 JUnitTestRef.ofMethod(() -> CompanyTest.class.getMethod("testGetListOfAllEmployee", JsonParameterSet.class))
                             )
                         )
@@ -156,7 +157,12 @@ public class H11_RubricProvider implements RubricProvider {
                     Criterion.builder()
                         .shortDescription("H3.3: Filtern der Produkte")
                         .addChildCriteria(
-                            privateCriterion("", 0, 3)
+                            criterion(
+                                "Die Rückabe der Methode getFilteredProductNames() ist korrekt für ein übergebenes Predicate.",
+                                JUnitTestRef.ofMethod(() -> CompanyTest.class.getMethod("testGetFilteredProductNames_single", JsonParameterSet.class))
+                            ),
+                            privateCriterion("Die Rückabe der Methode getFilteredProductNames() ist korrekt für kein oder mehrere übergebene Predicates.", 0, 1),
+                            privateCriterion("Die Rückabe der Methode getFilteredProductNames() ist vollständig korrekt.", 0, 1)
                         )
                         .build(),
                     Criterion.builder()
@@ -167,7 +173,7 @@ public class H11_RubricProvider implements RubricProvider {
                                 JUnitTestRef.ofMethod(() -> CompanyTest.class.getMethod("testPriceRange_filter", JsonParameterSet.class))
                             ),
                             criterion(
-                                "Die zurück gelieferten Produkte sind korrekt sortiert.",
+                                "Die zurück gegebene Liste ist korrekt sortiert.",
                                 JUnitTestRef.ofMethod(() -> CompanyTest.class.getMethod("testPriceRange_sorted", JsonParameterSet.class))
                             )
                         )
@@ -175,7 +181,8 @@ public class H11_RubricProvider implements RubricProvider {
                     Criterion.builder()
                         .shortDescription("H3.5: Übersicht der Namen")
                         .addChildCriteria(
-                            privateCriterion("", 0, 2)
+                            privateCriterion("Die Rückgabe der Methode getEmployeesSortedByName() ist korrekt sortiert.", 0, 1),
+                            privateCriterion("Die Rückgabe der Methode getEmployeesSortedByName() ist korrekt formatiert.", 0, 1)
                         )
                         .build(),
                     Criterion.builder()
@@ -194,7 +201,7 @@ public class H11_RubricProvider implements RubricProvider {
                                 JUnitTestRef.ofMethod(() -> CompanyTest.class.getMethod("testGetAllProductsByType_sorted", JsonParameterSet.class))
                             ),
                             criterion(
-                                "Jeder von getAllProductsByType() zurück gelieferte Wert ist richtig formattiert.",
+                                "Jeder von getAllProductsByType() zurück gelieferte Wert ist richtig formatiert.",
                                 JUnitTestRef.ofMethod(() -> CompanyTest.class.getMethod("testGetAllProductsByType_formatting", JsonParameterSet.class))
                             )
                         )
@@ -212,7 +219,7 @@ public class H11_RubricProvider implements RubricProvider {
     public static Criterion privateCriterion(String message, int min, int max){
         return Criterion.builder()
             .shortDescription(message)
-            .grader(graderPrivateOnly())
+            .grader(graderPrivateOnly(max))
             .minPoints(min)
             .maxPoints(max)
             .build();

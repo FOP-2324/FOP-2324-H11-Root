@@ -77,7 +77,7 @@ public record Company(@DoNotTouch List<Department> departments, @DoNotTouch List
      */
     @StudentImplementationRequired
     public List<String> getFilteredProductNames(List<Predicate<Product>> predicates) {
-        return getProducts(predicates.stream().reduce(Predicate::and).orElse(p -> true)) // just to show that allMatch isn't necessary here ;) (but it would be better)
+        return getProducts(prod -> predicates.stream().allMatch(pred -> pred.test(prod)))
             .map(Product::name)
             .toList();
     }

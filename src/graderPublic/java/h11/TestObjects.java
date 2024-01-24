@@ -144,6 +144,13 @@ public class TestObjects {
                 warehouses.get(1),
                 warehouses.get(0)
             )
+        ),
+        new Company(
+            List.of(),
+            List.of(
+                new Warehouse(products),
+                new Warehouse(products)
+            )
         )
     );
 }

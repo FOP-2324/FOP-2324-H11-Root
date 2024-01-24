@@ -9,6 +9,7 @@ import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
 
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.fail;
 
 @TestForSubmission
 public class CompanyTest extends H11_Test {
+
 
     @ParameterizedTest
     @JsonParameterSetTest(value = "getListOfAllEmployee.json", customConverters = "customConverters")
@@ -42,7 +44,7 @@ public class CompanyTest extends H11_Test {
         Company company = params.get("company");
 
         List<Warehouse> warehouses = company.warehouses();
-        for (int i = 0; i < warehouses.size(); i++){
+        for (int i = 0; i < warehouses.size(); i++) {
             Warehouse mocked = spy(warehouses.get(i));
             doReturn(JsonConverter.toList(params.getRootNode().get("mocked"), JsonConverter::toProduct))
                 .when(mocked)
@@ -53,7 +55,37 @@ public class CompanyTest extends H11_Test {
         Product product = JsonConverter.toList(params.getRootNode().get("arguments"), JsonConverter::toProduct).get(0);
         long actual = company.getQuantityOfProduct(product);
 
-        assertEquals(expected, actual, params.toContext("mocked"), r -> "The returned amount of Products does not match the expected.");
+        assertEquals(
+            expected,
+            actual,
+            params.toContext("mocked"),
+            r -> "The returned amount of Products does not match the expected."
+        );
+    }
+
+    @ParameterizedTest
+    @JsonParameterSetTest(value = "getFilteredProductNames_single.json", customConverters = "customConverters")
+    public void testGetFilteredProductNames_single(final JsonParameterSet params) {
+        List<String> expected = JsonConverter.toList(params.getRootNode().get("expected"), JsonNode::asText);
+
+        Company company = params.get("company");
+
+        List<Warehouse> warehouses = company.warehouses();
+        for (int i = 0; i < warehouses.size(); i++) {
+            Warehouse mocked = spy(warehouses.get(i));
+            doReturn(JsonConverter.toList(params.getRootNode().get("mocked"), JsonConverter::toProduct))
+                .when(mocked)
+                .getProducts(any());
+            warehouses.set(i, mocked);
+        }
+
+        List<Predicate<Product>> predicates = JsonConverter.toList(
+            params.getRootNode().get("arguments").get(0),
+            jsonNode -> ProductPredicate.valueOf(jsonNode.asText()).getPredicate()
+        );
+        List<String> actual = company.getFilteredProductNames(predicates);
+
+        assertListEquals(expected, actual, params.toContext("mocked"));
     }
 
     @Test
@@ -69,7 +101,7 @@ public class CompanyTest extends H11_Test {
         Company company = params.get("company");
 
         List<Warehouse> warehouses = company.warehouses();
-        for (int i = 0; i < warehouses.size(); i++){
+        for (int i = 0; i < warehouses.size(); i++) {
             Warehouse mocked = spy(warehouses.get(i));
             doReturn(JsonConverter.toList(params.getRootNode().get("mocked"), JsonConverter::toProduct))
                 .when(mocked)
@@ -90,7 +122,7 @@ public class CompanyTest extends H11_Test {
         Company company = params.get("company");
 
         List<Warehouse> warehouses = company.warehouses();
-        for (int i = 0; i < warehouses.size(); i++){
+        for (int i = 0; i < warehouses.size(); i++) {
             Warehouse mocked = spy(warehouses.get(i));
             doReturn(JsonConverter.toList(params.getRootNode().get("mocked"), JsonConverter::toProduct))
                 .when(mocked)
@@ -103,8 +135,8 @@ public class CompanyTest extends H11_Test {
         List<Product> actual = company.priceRange(low, high);
 
         double highest = Double.MIN_VALUE;
-        for (int i = 0; i < actual.size(); i++){
-            if (actual.get(i).price() < highest){
+        for (int i = 0; i < actual.size(); i++) {
+            if (actual.get(i).price() < highest) {
                 Context context = contextBuilder()
                     .add(params.toContext("mocked", "expected"))
                     .add("actual", actual)
@@ -129,12 +161,13 @@ public class CompanyTest extends H11_Test {
 
         List<Warehouse> warehouses = company.warehouses();
         int mockNum = 0;
-        for (int i = 0; i < warehouses.size(); i++){
-            if (warehouses.get(i).products.isEmpty()){
+        for (int i = 0; i < warehouses.size(); i++) {
+            if (warehouses.get(i).products.isEmpty()) {
                 continue;
             }
             Warehouse mocked = spy(warehouses.get(i));
-            doReturn(JsonConverter.toList(params.getRootNode().get("mocked"), JsonConverter::toProduct).subList(mockNum, ++mockNum))
+            doReturn(JsonConverter.toList(params.getRootNode().get("mocked"), JsonConverter::toProduct)
+                .subList(mockNum, ++mockNum))
                 .when(mocked)
                 .getProducts(any());
             warehouses.set(i, mocked);
@@ -144,7 +177,12 @@ public class CompanyTest extends H11_Test {
         int amount = params.getRootNode().get("arguments").get(1).asInt();
         int actual = company.getAllProductsByType(type, amount).size();
 
-        assertEquals(expected, actual, params.toContext("mocked"), r -> "The returned amount of Items does not match the expected.");
+        assertEquals(
+            expected,
+            actual,
+            params.toContext("mocked"),
+            r -> "The returned amount of Items does not match the expected."
+        );
     }
 
     @ParameterizedTest
@@ -156,12 +194,13 @@ public class CompanyTest extends H11_Test {
 
         List<Warehouse> warehouses = company.warehouses();
         int mockNum = 0;
-        for (int i = 0; i < warehouses.size(); i++){
-            if (warehouses.get(i).products.isEmpty()){
+        for (int i = 0; i < warehouses.size(); i++) {
+            if (warehouses.get(i).products.isEmpty()) {
                 continue;
             }
             Warehouse mocked = spy(warehouses.get(i));
-            doReturn(JsonConverter.toList(params.getRootNode().get("mocked"), JsonConverter::toProduct).subList(mockNum, ++mockNum))
+            doReturn(JsonConverter.toList(params.getRootNode().get("mocked"), JsonConverter::toProduct)
+                .subList(mockNum, ++mockNum))
                 .when(mocked)
                 .getProducts(any());
             warehouses.set(i, mocked);
@@ -173,7 +212,7 @@ public class CompanyTest extends H11_Test {
 
         Pattern pattern = Pattern.compile(expected.stream().map(str -> "(.*(" + str + ").*)").collect(Collectors.joining("|")));
 
-        for (int i = 0; i < Math.min(expected.size(), actual.size()); i ++){
+        for (int i = 0; i < Math.min(expected.size(), actual.size()); i++) {
             int finalI = i;
             assertTrue(
                 pattern.matcher(actual.get(i)).matches(),
@@ -195,12 +234,13 @@ public class CompanyTest extends H11_Test {
 
         List<Warehouse> warehouses = company.warehouses();
         int mockNum = 0;
-        for (int i = 0; i < warehouses.size(); i++){
-            if (warehouses.get(i).products.isEmpty()){
+        for (int i = 0; i < warehouses.size(); i++) {
+            if (warehouses.get(i).products.isEmpty()) {
                 continue;
             }
             Warehouse mocked = spy(warehouses.get(i));
-            doReturn(JsonConverter.toList(params.getRootNode().get("mocked"), JsonConverter::toProduct).subList(mockNum, ++mockNum))
+            doReturn(JsonConverter.toList(params.getRootNode().get("mocked"), JsonConverter::toProduct)
+                .subList(mockNum, ++mockNum))
                 .when(mocked)
                 .getProducts(any());
             warehouses.set(i, mocked);
@@ -210,7 +250,7 @@ public class CompanyTest extends H11_Test {
         int amount = params.getRootNode().get("arguments").get(1).asInt();
         List<String> actual = company.getAllProductsByType(type, amount);
 
-        for (int i = 0; i < Math.min(expected.size(), actual.size()); i ++){
+        for (int i = 0; i < Math.min(expected.size(), actual.size()); i++) {
             int finalI = i;
 
             assertTrue(
@@ -231,12 +271,13 @@ public class CompanyTest extends H11_Test {
 
         List<Warehouse> warehouses = company.warehouses();
         int mockNum = 0;
-        for (int i = 0; i < warehouses.size(); i++){
-            if (warehouses.get(i).products.isEmpty()){
+        for (int i = 0; i < warehouses.size(); i++) {
+            if (warehouses.get(i).products.isEmpty()) {
                 continue;
             }
             Warehouse mocked = spy(warehouses.get(i));
-            doReturn(JsonConverter.toList(params.getRootNode().get("mocked"), JsonConverter::toProduct).subList(mockNum, ++mockNum))
+            doReturn(JsonConverter.toList(params.getRootNode().get("mocked"), JsonConverter::toProduct)
+                .subList(mockNum, ++mockNum))
                 .when(mocked)
                 .getProducts(any());
             warehouses.set(i, mocked);
@@ -248,7 +289,7 @@ public class CompanyTest extends H11_Test {
 
         Pattern pattern = Pattern.compile("\\D+: [+-]?\\d+([.,]\\d+)?€?");
 
-        for (int i = 0; i < actual.size(); i ++){
+        for (int i = 0; i < actual.size(); i++) {
             int finalI = i;
             assertTrue(
                 pattern.matcher(actual.get(i)).matches(),
@@ -258,6 +299,25 @@ public class CompanyTest extends H11_Test {
                     .build(),
                 r -> "The returned List of Items does not have the correct formatting at position %d.".formatted(finalI)
             );
+        }
+    }
+
+    public enum ProductPredicate {
+
+        NAME_STARTS_WITH_R(p -> p.name().startsWith("R")),
+        NAME_CONTAINS_DIGIT(p -> p.name().matches(".*\\d.*")),
+        IS_HARDWARE(p -> p.type() == ProductType.Hardware),
+        IS_SOFTWARE(p -> p.type() == ProductType.Software),
+        PRICE_OVER_50(p -> p.price() > 50);
+
+        private Predicate<Product> predicate;
+
+        ProductPredicate(Predicate<Product> predicate) {
+            this.predicate = predicate;
+        }
+
+        public Predicate<Product> getPredicate() {
+            return predicate;
         }
     }
 }

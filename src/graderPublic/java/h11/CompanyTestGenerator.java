@@ -57,6 +57,65 @@ public class CompanyTestGenerator extends TestGenerator {
     }
 
     @Test
+    public void generateGetFilteredProductNames_single() throws Throwable {
+        generateJson("getFilteredProductNames","single",
+            List.of(
+                companies.get(6),
+                companies.get(6),
+                companies.get(6),
+                companies.get(6),
+                companies.get(6)
+            ),
+            List.of(
+                companies.get(6).getFilteredProductNames(List.of(CompanyTest.ProductPredicate.NAME_STARTS_WITH_R.getPredicate())),
+                companies.get(6).getFilteredProductNames(List.of(CompanyTest.ProductPredicate.NAME_CONTAINS_DIGIT.getPredicate())),
+                companies.get(6).getFilteredProductNames(List.of(CompanyTest.ProductPredicate.IS_HARDWARE.getPredicate())),
+                companies.get(6).getFilteredProductNames(List.of(CompanyTest.ProductPredicate.IS_SOFTWARE.getPredicate())),
+                companies.get(6).getFilteredProductNames(List.of(CompanyTest.ProductPredicate.PRICE_OVER_50.getPredicate()))
+            ),
+            List.of(
+                Arguments.arguments(List.of(CompanyTest.ProductPredicate.NAME_STARTS_WITH_R)),
+                Arguments.arguments(List.of(CompanyTest.ProductPredicate.NAME_CONTAINS_DIGIT)),
+                Arguments.arguments(List.of(CompanyTest.ProductPredicate.IS_HARDWARE)),
+                Arguments.arguments(List.of(CompanyTest.ProductPredicate.IS_SOFTWARE)),
+                Arguments.arguments(List.of(CompanyTest.ProductPredicate.PRICE_OVER_50))
+            ),
+            List.of(
+                companies.get(6)
+                    .warehouses()
+                    .stream()
+                    .flatMap(w -> w.products.stream())
+                    .filter(p -> p.type().equals(ProductType.Hardware))
+                    .toList(),
+                companies.get(6)
+                    .warehouses()
+                    .stream()
+                    .flatMap(w -> w.products.stream())
+                    .filter(p -> p.type().equals(ProductType.Hardware))
+                    .toList(),
+                companies.get(6)
+                    .warehouses()
+                    .stream()
+                    .flatMap(w -> w.products.stream())
+                    .filter(p -> p.type().equals(ProductType.Hardware))
+                    .toList(),
+                companies.get(6)
+                    .warehouses()
+                    .stream()
+                    .flatMap(w -> w.products.stream())
+                    .filter(p -> p.type().equals(ProductType.Hardware))
+                    .toList(),
+                companies.get(6)
+                    .warehouses()
+                    .stream()
+                    .flatMap(w -> w.products.stream())
+                    .filter(p -> p.type().equals(ProductType.Hardware))
+                    .toList()
+            )
+        );
+    }
+
+    @Test
     public void generatePriceRange() throws Throwable {
         generateJson(
             "",
