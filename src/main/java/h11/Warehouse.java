@@ -28,7 +28,7 @@ public class Warehouse {
 
     @DoNotTouch
     public Warehouse(List<Product> products) {
-        this.products = products;
+        this.products = new ArrayList<>(products);
     }
 
     @SolutionOnly
@@ -83,7 +83,7 @@ public class Warehouse {
 
     @StudentImplementationRequired
     public long getTotalQuantityOfProduct(Product product) {
-        return getProducts(p -> p == product)
+        return getProducts(p -> p.equals(product))
             .size();
     }
 
