@@ -33,8 +33,13 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                     "testGetListOfPositionsInDepartment_noDuplicate",
                                     JsonParameterSet.class
                                 ))
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> DepartmentTestP.class.getMethod(
+                                    "testGetListOfPositionsInDepartment_va")),
+                                -2)
                         )
+                        .minPoints(0)
                         .build(),
                     Criterion.builder()
                         .shortDescription("H1.2: Liste aller Angestellten einer Position")
@@ -46,8 +51,13 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                     JsonParameterSet.class
                                 )),
                                 2
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> DepartmentTestP.class.getMethod(
+                                    "testFilterEmployeeByPosition_va")),
+                                -2)
                         )
+                        .minPoints(0)
                         .build(),
                     Criterion.builder()
                         .shortDescription("H1.3: Nach Gehalt filtern")
@@ -59,8 +69,13 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                     JsonParameterSet.class
                                 )),
                                 2
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> DepartmentTestP.class.getMethod(
+                                    "testGetNumberOfEmployeesBySalary_va")),
+                                -2)
                         )
+                        .minPoints(0)
                         .build(),
                     Criterion.builder()
                         .shortDescription("H1.4: Gehaltserhöhung?")
@@ -90,8 +105,13 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                         JsonParameterSet.class
                                     ))
                                 )
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> DepartmentTestP.class.getMethod(
+                                    "testAdjustSalary_va")),
+                                -2)
                         )
+                        .minPoints(0)
                         .build()
                 )
                 .build(),
@@ -120,7 +140,11 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                 "Die verbindlichen Anforderungen der Aufgabe wurden eingehalten.",
                                 JUnitTestRef.ofMethod(() -> WarehouseTestP.class.getMethod("testGetPrice_va")),
                                 -1
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> WarehouseTestP.class.getMethod(
+                                    "testGetPrice_generalVa")),
+                                -2)
                         )
                         .minPoints(0)
                         .build(),
@@ -131,8 +155,13 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                 "Die Methode getProducts() liefert die korrekten Elemente der Liste zurück.",
                                 JUnitTestRef.ofMethod(() -> WarehouseTestP.class.getMethod(
                                     "testGetProducts", JsonParameterSet.class))
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> WarehouseTestP.class.getMethod(
+                                    "testGetProducts_va")),
+                                -1)
                         )
+                        .minPoints(0)
                         .build(),
                     Criterion.builder()
                         .shortDescription("H2.3: Übersicht über die Stückzahl")
@@ -143,8 +172,13 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                 JUnitTestRef.ofMethod(() -> WarehouseTestP.class.getMethod(
                                     "testGetTotalQuantityOfProduct", JsonParameterSet.class)),
                                 2
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> WarehouseTestP.class.getMethod(
+                                    "testGetTotalPrice_va")),
+                                -2)
                         )
+                        .minPoints(0)
                         .build(),
                     Criterion.builder()
                         .shortDescription("H2.4: Wieviel Wert steckt denn nun hier drinnen?")
@@ -154,8 +188,13 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                 JUnitTestRef.ofMethod(() -> WarehouseTestP.class.getMethod(
                                     "testGetTotalPrice", JsonParameterSet.class)),
                                 2
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> WarehouseTestP.class.getMethod(
+                                    "testGetTotalPrice_va")),
+                                -2)
                         )
+                        .minPoints(0)
                         .build(),
                     Criterion.builder()
                         .shortDescription("H2.5: Eine Lieferung kommt rein")
@@ -172,8 +211,13 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                     double.class,
                                     String.class
                                 ))
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> WarehouseTestP.class.getMethod(
+                                    "testGenerateProducts_va")),
+                                -2)
                         )
+                        .minPoints(0)
                         .build(),
                     Criterion.builder()
                         .shortDescription("H2.6: Aufstocken")
@@ -187,8 +231,13 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                 "Die Methode addProducts() fügt Produkte aus generateProducts() zu \"products\" hinzu.",
                                 JUnitTestRef.ofMethod(() -> WarehouseTestP.class.getMethod(
                                     "testAddProducts_containsExact"))
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> WarehouseTestP.class.getMethod(
+                                    "testAddProducts_va")),
+                                -2)
                         )
+                        .minPoints(0)
                         .build()
                 )
                 .build(),
@@ -204,8 +253,13 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                     "testGetListOfAllEmployee",
                                     JsonParameterSet.class
                                 ))
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> CompanyTestP.class.getMethod(
+                                    "testGetListOfAllEmployee_va")),
+                                -1)
                         )
+                        .minPoints(0)
                         .build(),
                     Criterion.builder()
                         .shortDescription("H3.2: Übersicht Gesamtanzahl der Produkte")
@@ -216,8 +270,13 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                     "testGetQuantityOfProduct",
                                     JsonParameterSet.class
                                 ))
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> CompanyTestP.class.getMethod(
+                                    "testGetQuantityOfProduct_va")),
+                                -1)
                         )
+                        .minPoints(0)
                         .build(),
                     Criterion.builder()
                         .shortDescription("H3.3: Filtern der Produkte")
@@ -251,8 +310,13 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                     JUnitTestRef.ofMethod(() -> CompanyTestP.class.getMethod(
                                         "testGetFilteredProductNames_none", JsonParameterSet.class))
                                 )
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> CompanyTestP.class.getMethod(
+                                    "testGetFilteredProductNames_va")),
+                                -3)
                         )
+                        .minPoints(0)
                         .build(),
                     Criterion.builder()
                         .shortDescription("H3.4: Preisspanne vorgeben")
@@ -270,8 +334,13 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                     "testPriceRange_sorted",
                                     JsonParameterSet.class
                                 ))
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> CompanyTestP.class.getMethod(
+                                    "testPriceRange_va")),
+                                -2)
                         )
+                        .minPoints(0)
                         .build(),
                     Criterion.builder()
                         .shortDescription("H3.5: Übersicht der Namen")
@@ -287,8 +356,13 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                     "testGetEmployeesSortedByName_formatting",
                                     JsonParameterSet.class
                                 ))
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> CompanyTestP.class.getMethod(
+                                    "testGetEmployeesSortedByName_va")),
+                                -2)
                         )
+                        .minPoints(0)
                         .build(),
                     Criterion.builder()
                         .shortDescription("H3.6: Schnellübersicht von Produkten")
@@ -323,8 +397,13 @@ public class H11_RubricProviderPrivate implements RubricProvider {
                                     "testGetAllProductsByType_formatting",
                                     JsonParameterSet.class
                                 ))
-                            )
+                            ),
+                            criterion("Verbindliche Anforderung nicht erfüllt",
+                                JUnitTestRef.ofMethod(() -> CompanyTestP.class.getMethod(
+                                    "testGetAllProductsByType_va")),
+                                -4)
                         )
+                        .minPoints(0)
                         .build()
                 )
                 .build()

@@ -1,10 +1,12 @@
 package h11;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.tudalgo.algoutils.tutor.general.assertions.Assertions4;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
+import org.tudalgo.algoutils.tutor.general.reflections.BasicMethodLink;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -14,7 +16,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertT
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.contextBuilder;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.emptyContext;
 
-public class H11_Test {
+public class H11_TestP {
 
     public static final Map<String, Function<JsonNode, ?>> customConverters = new HashMap<>() {
         {
@@ -42,5 +44,10 @@ public class H11_Test {
         assertEquals(expected.size(), actual.size(), context, r -> "List does not contain same amount of items.");
 
         assertEquals(expected, actual, context, r -> "The List does not have the correct ordering.");
+    }
+
+    public void assertNoLoopOrRecursion(Method methodToCheck) {
+        Assertions4.assertIsNotRecursively(BasicMethodLink.of(methodToCheck).getCtElement(), emptyContext(), r -> "Method %s uses recursion.");
+        Assertions4.assertIsNotIteratively(BasicMethodLink.of(methodToCheck).getCtElement(), emptyContext(), r -> "Method %s uses loops.");
     }
 }

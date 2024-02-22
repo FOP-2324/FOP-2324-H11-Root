@@ -14,6 +14,7 @@ import spoon.reflect.code.CtIf;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.visitor.filter.TypeFilter;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -38,7 +39,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.context
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.emptyContext;
 
 @TestForSubmission
-public class WarehouseTestP extends H11_Test {
+public class WarehouseTestP extends H11_TestP {
 
     @ParameterizedTest
     @JsonParameterSetTest(value = "getPrice_null.json", customConverters = "customConverters")
@@ -173,5 +174,47 @@ public class WarehouseTestP extends H11_Test {
         List<Product> productList = products.get().limit(10).toList();
         Set<Integer> productsIdentity = productList.stream().map(System::identityHashCode).collect(Collectors.toSet());
         assertEquals(productList.size(), productsIdentity.size(), context, r -> "The returned Stream does not contain individually created new Products");
+    }
+
+    @Test
+    public void testGetPrice_generalVa() {
+        Method method = BasicTypeLink.of(Warehouse.class).getMethod(BasicStringMatchers.identical("getPrice")).reflection();
+        assertNoLoopOrRecursion(method);
+    }
+
+    @Test
+    public void testSetMaxCapacity_va() {
+        Method method = BasicTypeLink.of(Warehouse.class).getMethod(BasicStringMatchers.identical("setMaxCapacity")).reflection();
+        assertNoLoopOrRecursion(method);
+    }
+
+    @Test
+    public void testGetTotalQuantityOfProduct_va() {
+        Method method = BasicTypeLink.of(Warehouse.class).getMethod(BasicStringMatchers.identical("getTotalQuantityOfProduct")).reflection();
+        assertNoLoopOrRecursion(method);
+    }
+
+    @Test
+    public void testGetTotalPrice_va() {
+        Method method = BasicTypeLink.of(Warehouse.class).getMethod(BasicStringMatchers.identical("getTotalPrice")).reflection();
+        assertNoLoopOrRecursion(method);
+    }
+
+    @Test
+    public void testAddProducts_va() {
+        Method method = BasicTypeLink.of(Warehouse.class).getMethod(BasicStringMatchers.identical("addProducts")).reflection();
+        assertNoLoopOrRecursion(method);
+    }
+
+    @Test
+    public void testGenerateProducts_va() {
+        Method method = BasicTypeLink.of(Warehouse.class).getMethod(BasicStringMatchers.identical("generateProducts")).reflection();
+        assertNoLoopOrRecursion(method);
+    }
+
+    @Test
+    public void testGetProducts_va() {
+        Method method = BasicTypeLink.of(Warehouse.class).getMethod(BasicStringMatchers.identical("getProducts")).reflection();
+        assertNoLoopOrRecursion(method);
     }
 }

@@ -1,12 +1,16 @@
 package h11;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
+import org.tudalgo.algoutils.tutor.general.match.BasicStringMatchers;
+import org.tudalgo.algoutils.tutor.general.reflections.BasicTypeLink;
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
@@ -24,7 +28,7 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.context
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.fail;
 
 @TestForSubmission
-public class CompanyTestP extends H11_Test {
+public class CompanyTestP extends H11_TestP {
 
 
     @ParameterizedTest
@@ -419,6 +423,42 @@ public class CompanyTestP extends H11_Test {
                 r -> "The returned List of Items does not have the correct formatting at position %d.".formatted(finalI)
             );
         }
+    }
+
+    @Test
+    public void testGetListOfAllEmployee_va() {
+        Method method = BasicTypeLink.of(Company.class).getMethod(BasicStringMatchers.identical("getListOfAllEmployee")).reflection();
+        assertNoLoopOrRecursion(method);
+    }
+
+    @Test
+    public void testGetQuantityOfProduct_va() {
+        Method method = BasicTypeLink.of(Company.class).getMethod(BasicStringMatchers.identical("getQuantityOfProduct")).reflection();
+        assertNoLoopOrRecursion(method);
+    }
+
+    @Test
+    public void testGetFilteredProductNames_va() {
+        Method method = BasicTypeLink.of(Company.class).getMethod(BasicStringMatchers.identical("getFilteredProductNames")).reflection();
+        assertNoLoopOrRecursion(method);
+    }
+
+    @Test
+    public void testPriceRange_va() {
+        Method method = BasicTypeLink.of(Company.class).getMethod(BasicStringMatchers.identical("priceRange")).reflection();
+        assertNoLoopOrRecursion(method);
+    }
+
+    @Test
+    public void testGetEmployeesSortedByName_va() {
+        Method method = BasicTypeLink.of(Company.class).getMethod(BasicStringMatchers.identical("getEmployeesSortedByName")).reflection();
+        assertNoLoopOrRecursion(method);
+    }
+
+    @Test
+    public void testGetAllProductsByType_va() {
+        Method method = BasicTypeLink.of(Company.class).getMethod(BasicStringMatchers.identical("getAllProductsByType")).reflection();
+        assertNoLoopOrRecursion(method);
     }
 
     public enum ProductPredicate {

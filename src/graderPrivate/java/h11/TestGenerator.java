@@ -3,18 +3,18 @@ package h11;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.provider.Arguments;
+import org.tudalgo.algoutils.student.annotation.StudentImplementationRequired;
+import org.tudalgo.algoutils.tutor.general.reflections.BasicMethodLink;
 import org.tudalgo.algoutils.tutor.general.reflections.MethodLink;
-import org.tudalgo.algoutils.tutor.general.reflections.TypeLink;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TestGenerator {
 
@@ -160,5 +160,51 @@ public class TestGenerator {
         file.getParentFile().mkdirs();
         file.createNewFile();
         JsonConverter.MAPPER.writeValue(file, rootNode);
+    }
+
+    @Test
+    void generateVATest() {
+        List<Class<?>> classes = List.of(Company.class, Department.class, Warehouse.class);
+        List<String> ignoredMethods = List.of("equals", "hashCode", "toString");
+
+        List<String> print = new ArrayList<>();
+
+        for (Class<?> clazz : classes) {
+            String className = clazz.getSimpleName();
+            Method[] methods = clazz.getDeclaredMethods();
+
+            System.out.println("Processing " + className);
+
+            for (Method method : methods) {
+                String methodName = method.getName();
+
+                System.out.println("    Processing " + methodName);
+
+                if (method.isSynthetic()) {
+                    System.out.println("        skipping Synthetic");
+                    continue;
+                }
+
+                //filter methods form records without source
+                if (ignoredMethods.contains(methodName) || (clazz.getRecordComponents() != null
+                    && Arrays.stream(clazz.getRecordComponents()).anyMatch(comp -> comp.getAccessor() == method))) {
+                    continue;
+                }
+
+                if (BasicMethodLink.of(method).getCtElement().hasAnnotation(StudentImplementationRequired.class)) {
+
+                    print.add(
+                        """
+                            @Test
+                            public void test%s_va() {
+                                Method method = BasicTypeLink.of(%s.class).getMethod(BasicStringMatchers.identical("%s")).reflection();
+                                assertNoLoopOrRecursion(method);
+                            }
+                            """.formatted(methodName.substring(0, 1).toUpperCase() + methodName.substring(1), className, methodName)
+                    );
+                }
+            }
+        }
+        print.forEach(System.out::println);
     }
 }

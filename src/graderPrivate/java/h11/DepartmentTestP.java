@@ -1,16 +1,20 @@
 package h11;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSet;
 import org.tudalgo.algoutils.tutor.general.json.JsonParameterSetTest;
+import org.tudalgo.algoutils.tutor.general.match.BasicStringMatchers;
+import org.tudalgo.algoutils.tutor.general.reflections.BasicTypeLink;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertEquals;
 
 @TestForSubmission
-public class DepartmentTestP extends H11_Test {
+public class DepartmentTestP extends H11_TestP {
 
     @ParameterizedTest
     @JsonParameterSetTest(value = "getListOfPositionsInDepartment_noDuplicate.json", customConverters = "customConverters")
@@ -98,5 +102,29 @@ public class DepartmentTestP extends H11_Test {
         department.adjustSalary(params.getRootNode().get("arguments").get(0).asDouble(), params.getRootNode().get("arguments").get(1).asBoolean());
 
         assertEquals(expected, department, params.toContext("mocked"), r -> "The Salaries do not match the expected");
+    }
+
+    @Test
+    public void testGetListOfPositionsInDepartment_va() {
+        Method method = BasicTypeLink.of(Department.class).getMethod(BasicStringMatchers.identical("getListOfPositionsInDepartment")).reflection();
+        assertNoLoopOrRecursion(method);
+    }
+
+    @Test
+    public void testFilterEmployeeByPosition_va() {
+        Method method = BasicTypeLink.of(Department.class).getMethod(BasicStringMatchers.identical("filterEmployeeByPosition")).reflection();
+        assertNoLoopOrRecursion(method);
+    }
+
+    @Test
+    public void testGetNumberOfEmployeesBySalary_va() {
+        Method method = BasicTypeLink.of(Department.class).getMethod(BasicStringMatchers.identical("getNumberOfEmployeesBySalary")).reflection();
+        assertNoLoopOrRecursion(method);
+    }
+
+    @Test
+    public void testAdjustSalary_va() {
+        Method method = BasicTypeLink.of(Department.class).getMethod(BasicStringMatchers.identical("adjustSalary")).reflection();
+        assertNoLoopOrRecursion(method);
     }
 }
