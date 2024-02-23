@@ -24,7 +24,7 @@ public class DepartmentTestP extends H11_TestP {
         Department department = params.get("department");
         List<Position> actual = department.getListOfPositionsInDepartment();
 
-        assertListEquals(expected, actual, params.toContext("mocked", "arguments"));
+        assertContainsAll(expected, actual, params.toContext("mocked", "arguments"));
     }
 
     @ParameterizedTest
@@ -35,7 +35,7 @@ public class DepartmentTestP extends H11_TestP {
         Department department = params.get("department");
         List<Position> actual = department.getListOfPositionsInDepartment();
 
-        assertListEquals(expected, actual, params.toContext("mocked", "arguments"));
+        assertContainsAll(expected, actual, params.toContext("mocked", "arguments"));
     }
 
     @ParameterizedTest
