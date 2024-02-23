@@ -1,9 +1,16 @@
 package h11;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.eclipse.jdt.core.dom.DoStatement;
+import org.eclipse.jdt.core.dom.WhileStatement;
+import org.tudalgo.algoutils.tutor.general.assertions.Assertions2;
 import org.tudalgo.algoutils.tutor.general.assertions.Assertions4;
 import org.tudalgo.algoutils.tutor.general.assertions.Context;
 import org.tudalgo.algoutils.tutor.general.reflections.BasicMethodLink;
+import spoon.reflect.code.CtDo;
+import spoon.reflect.code.CtFor;
+import spoon.reflect.code.CtForEach;
+import spoon.reflect.code.CtWhile;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -15,6 +22,8 @@ import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertE
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.assertTrue;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.contextBuilder;
 import static org.tudalgo.algoutils.tutor.general.assertions.Assertions2.emptyContext;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions4.assertIsNotIteratively;
+import static org.tudalgo.algoutils.tutor.general.assertions.Assertions4.assertIsNotRecursively;
 
 public class H11_TestP {
 
@@ -47,7 +56,16 @@ public class H11_TestP {
     }
 
     public void assertNoLoopOrRecursion(Method methodToCheck) {
-        Assertions4.assertIsNotRecursively(BasicMethodLink.of(methodToCheck).getCtElement(), emptyContext(), r -> "Method %s uses recursion.");
-        Assertions4.assertIsNotIteratively(BasicMethodLink.of(methodToCheck).getCtElement(), emptyContext(), r -> "Method %s uses loops.");
+        assertIsNotRecursively(BasicMethodLink.of(methodToCheck).getCtElement(), emptyContext(), r -> "Method %s uses recursion.".formatted(methodToCheck.getName()));
+        if (BasicMethodLink.of(methodToCheck).getCtElement().getElements(e-> e instanceof CtFor
+            || e instanceof CtForEach
+            || e instanceof CtWhile
+            || e instanceof CtDo).isEmpty()) {
+            return;
+        }
+        Assertions2.fail(
+            emptyContext(),
+            r -> "Method %s uses loops.".formatted(methodToCheck.getName())
+        );
     }
 }
